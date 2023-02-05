@@ -1,0 +1,10 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[sub_resource type="DynamicFontData" id=2]
+antialiased = false
+hinting = 0
+font_path = "res://assets/fount/joystix monospace.otf"
+
+[resource]
+size = 36
+font_data = SubResource( 2 )

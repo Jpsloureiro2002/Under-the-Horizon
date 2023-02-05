@@ -1,0 +1,663 @@
+[gd_scene load_steps=73 format=2]
+
+[ext_resource path="res://Scripts/Player/PlayerMovement.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/player/player.png" type="Texture" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Player/Camera.gd" type="Script" id=4]
+[ext_resource path="res://assets/Fundo/Paralax_Fundo_2.png" type="Texture" id=5]
+[ext_resource path="res://assets/Fundo/Paralax_Fundo.png" type="Texture" id=6]
+[ext_resource path="res://assets/Player/walk/walk5.png" type="Texture" id=7]
+[ext_resource path="res://assets/Player/walk/walk2.png" type="Texture" id=8]
+[ext_resource path="res://assets/Player/walk/walk1.png" type="Texture" id=9]
+[ext_resource path="res://assets/Player/walk/walk4.png" type="Texture" id=10]
+[ext_resource path="res://assets/Player/walk/walk7.png" type="Texture" id=11]
+[ext_resource path="res://assets/Player/walk/walk8.png" type="Texture" id=12]
+[ext_resource path="res://assets/Player/walk/walk6.png" type="Texture" id=13]
+[ext_resource path="res://assets/Player/walk/walk9.png" type="Texture" id=14]
+[ext_resource path="res://assets/Player/walk/walk3.png" type="Texture" id=15]
+[ext_resource path="res://assets/Player/walk push rock/wal push rock5.png" type="Texture" id=16]
+[ext_resource path="res://assets/Player/walk push rock/wal push rock6.png" type="Texture" id=17]
+[ext_resource path="res://assets/Player/walk push rock/wal push rock3.png" type="Texture" id=18]
+[ext_resource path="res://assets/Player/walk push rock/wal push rock4.png" type="Texture" id=19]
+[ext_resource path="res://assets/Player/walk push rock/wal push rock2.png" type="Texture" id=20]
+[ext_resource path="res://assets/Player/arremesafr/charcter principal arremesar5.png" type="Texture" id=21]
+[ext_resource path="res://assets/Player/arremesafr/charcter principal arremesar2.png" type="Texture" id=22]
+[ext_resource path="res://assets/Player/arremesafr/charcter principal arremesar6.png" type="Texture" id=23]
+[ext_resource path="res://assets/Player/arremesafr/charcter principal arremesar1.png" type="Texture" id=24]
+[ext_resource path="res://assets/Player/arremesafr/charcter principal arremesar4.png" type="Texture" id=25]
+[ext_resource path="res://assets/Player/arremesafr/charcter principal arremesar3.png" type="Texture" id=26]
+[ext_resource path="res://assets/Player/agachado/agachado1.png" type="Texture" id=27]
+[ext_resource path="res://assets/Player/agachado/agachado3.png" type="Texture" id=28]
+[ext_resource path="res://assets/Player/agachado/agachado2.png" type="Texture" id=29]
+[ext_resource path="res://assets/Player/agachado/agachado4.png" type="Texture" id=30]
+[ext_resource path="res://assets/Player/JUMP/JUMP7.png" type="Texture" id=31]
+[ext_resource path="res://assets/Player/JUMP/JUMP3.png" type="Texture" id=32]
+[ext_resource path="res://assets/Player/JUMP/JUMP5.png" type="Texture" id=33]
+[ext_resource path="res://assets/Player/JUMP/JUMP1.png" type="Texture" id=34]
+[ext_resource path="res://assets/Player/JUMP/JUMP2.png" type="Texture" id=35]
+[ext_resource path="res://assets/Player/JUMP/JUMP6.png" type="Texture" id=36]
+[ext_resource path="res://assets/Player/JUMP/JUMP4.png" type="Texture" id=37]
+[ext_resource path="res://assets/HUD/Sprite-0011.png" type="Texture" id=38]
+[ext_resource path="res://assets/HUD/VIDA.png" type="Texture" id=39]
+[ext_resource path="res://assets/HUD/FIRE BALL.png" type="Texture" id=40]
+[ext_resource path="res://assets/HUD/FireBall_off.png" type="Texture" id=41]
+[ext_resource path="res://assets/HUD/POWER UP VELOCITY OFF1.png" type="Texture" id=42]
+[ext_resource path="res://assets/Sounds/Player/Steps/Outside/Step1.wav" type="AudioStream" id=43]
+[ext_resource path="res://assets/Sounds/Player/Actions/dash.wav" type="AudioStream" id=44]
+[ext_resource path="res://assets/Sounds/Player/Actions/jump.wav" type="AudioStream" id=45]
+[ext_resource path="res://assets/Sounds/Player/Actions/moveRock.wav" type="AudioStream" id=46]
+[ext_resource path="res://assets/Sounds/Player/Actions/throw.wav" type="AudioStream" id=47]
+
+[sub_resource type="Shader" id=16]
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = SubResource( 16 )
+
+[sub_resource type="Shader" id=14]
+code = "// chromatic aberration
+//---------------------------------
+
+shader_type canvas_item;
+
+uniform vec2 r_displacement = vec2(2.0, 0.0);
+uniform vec2 g_displacement = vec2(1.0, 0.0);
+uniform vec2 b_displacement = vec2(-2.0, 0.0);
+
+
+void fragment()
+{
+	float r = texture(SCREEN_TEXTURE, SCREEN_UV + vec2(SCREEN_PIXEL_SIZE*r_displacement), 0.0).r;
+	float g = texture(SCREEN_TEXTURE, SCREEN_UV + vec2(SCREEN_PIXEL_SIZE*g_displacement), 0.0).g;
+	float b = texture(SCREEN_TEXTURE, SCREEN_UV + vec2(SCREEN_PIXEL_SIZE*b_displacement), 0.0).b;
+	
+	COLOR = vec4(r, g, b, 1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 14 )
+shader_param/r_displacement = Vector2( 2, 0 )
+shader_param/g_displacement = Vector2( 1, 0 )
+shader_param/b_displacement = Vector2( -2, 0 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20, 36 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 24, 30.5 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 24, 18.5 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 44.5, 205.5 )
+
+[sub_resource type="Animation" id=12]
+resource_name = "Agachar"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 27 ), ExtResource( 29 ), ExtResource( 28 ), ExtResource( 30 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "Arremcar"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 24 ), ExtResource( 22 ), ExtResource( 26 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 23 ), ExtResource( 24 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("PlayerBody/AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 47 )
+} ],
+"times": PoolRealArray( 0.5 )
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "Dash"
+tracks/0/type = "audio"
+tracks/0/path = NodePath("PlayerBody/AudioStreamPlayer2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.162247,
+"start_offset": 0.0,
+"stream": ExtResource( 44 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "Dash_Power"
+length = 0.001
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Camera2D/Dash:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 38 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "Fire_Active"
+length = 0.001
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Camera2D/Fire:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 40 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "Fire_Desable"
+length = 0.001
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Camera2D/Fire:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 41 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Idle"
+length = 0.001
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "Jump"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 34 ), ExtResource( 35 ), ExtResource( 32 ), ExtResource( 37 ), ExtResource( 33 ), ExtResource( 36 ), ExtResource( 31 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("PlayerBody/AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 45 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlayerBody/Camera2D/Fire:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 40 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PlayerBody/Camera2D/Dash:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 38 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Walk"
+length = 0.95
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 8 ), ExtResource( 2 ), ExtResource( 8 ), ExtResource( 15 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 9 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("PlayerBody/AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 1.57646,
+"start_offset": 0.0,
+"stream": ExtResource( 43 )
+}, {
+"end_offset": 1.57646,
+"start_offset": 0.0,
+"stream": ExtResource( 43 )
+}, {
+"end_offset": 1.57515,
+"start_offset": 0.0,
+"stream": ExtResource( 43 )
+}, {
+"end_offset": 1.57515,
+"start_offset": 0.0,
+"stream": ExtResource( 43 )
+}, {
+"end_offset": 1.57515,
+"start_offset": 0.0,
+"stream": ExtResource( 43 )
+} ],
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 )
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "WalkPush"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 20 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 16 ), ExtResource( 17 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("PlayerBody/AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 46 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "Fire"
+length = 0.001
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Camera2D/Fire:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 40 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "Fire_off"
+length = 0.001
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Camera2D/Fire:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 41 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Camera2D/Fire:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 40 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "Dash"
+length = 0.001
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Camera2D/Dash:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 38 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "Dash_off"
+length = 0.001
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Camera2D/Dash:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 42 ) ]
+}
+
+[sub_resource type="Animation" id=26]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody/Camera2D/Dash:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 38 ) ]
+}
+
+[node name="Player" type="Node2D"]
+
+[node name="PlayerBody" type="KinematicBody2D" parent="." groups=["Player"]]
+material = SubResource( 17 )
+script = ExtResource( 1 )
+jump_speed = -350
+gravity_Max = 950
+can_dash = true
+
+[node name="Camera2D" type="Camera2D" parent="PlayerBody"]
+position = Vector2( 0, -100 )
+current = true
+script = ExtResource( 4 )
+player = NodePath("..")
+
+[node name="Sprite" type="Sprite" parent="PlayerBody/Camera2D"]
+material = SubResource( 15 )
+position = Vector2( -7.99999, -2.28882e-05 )
+scale = Vector2( 31.5, 16.875 )
+z_index = 100
+texture = ExtResource( 3 )
+
+[node name="Dash" type="Sprite" parent="PlayerBody/Camera2D"]
+position = Vector2( -656, -316 )
+scale = Vector2( 3.5, 3.5 )
+z_index = 130
+texture = ExtResource( 38 )
+
+[node name="Fire" type="Sprite" parent="PlayerBody/Camera2D"]
+position = Vector2( -656, -228 )
+scale = Vector2( 3.5, 3.5 )
+z_index = 130
+texture = ExtResource( 40 )
+
+[node name="Life" type="Sprite" parent="PlayerBody/Camera2D"]
+position = Vector2( -656, -148 )
+scale = Vector2( 3.5, 3.5 )
+z_index = 130
+texture = ExtResource( 39 )
+
+[node name="Normal" type="CollisionShape2D" parent="PlayerBody"]
+position = Vector2( 4, 4 )
+shape = SubResource( 1 )
+
+[node name="Crawl" type="CollisionShape2D" parent="PlayerBody"]
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4, 9.5 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="Sprite" type="Sprite" parent="PlayerBody"]
+position = Vector2( 0, 3.33786e-06 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+
+[node name="Hand" type="Node2D" parent="PlayerBody"]
+position = Vector2( 4.012, 0 )
+rotation = 3.14159
+
+[node name="Position2D" type="Position2D" parent="PlayerBody/Hand"]
+position = Vector2( 39.988, 0 )
+
+[node name="Timer" type="Timer" parent="PlayerBody/Hand"]
+wait_time = 0.5
+
+[node name="Sprite" type="Sprite" parent="PlayerBody/Hand"]
+visible = false
+position = Vector2( 39.988, 0 )
+scale = Vector2( 0.1875, 0.1875 )
+texture = ExtResource( 3 )
+
+[node name="Grabable_area" type="Area2D" parent="PlayerBody"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody/Grabable_area"]
+position = Vector2( 4, 22.5 )
+shape = SubResource( 4 )
+
+[node name="Jump_Colldown" type="Timer" parent="PlayerBody"]
+wait_time = 0.2
+
+[node name="Unshuteble_area" type="Area2D" parent="PlayerBody"]
+collision_layer = 134217728
+collision_mask = 134217728
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerBody/Unshuteble_area"]
+position = Vector2( 1.5, 222.5 )
+shape = SubResource( 6 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="PlayerBody"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="PlayerBody/ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.5 )
+
+[node name="Sprite" type="Sprite" parent="PlayerBody/ParallaxBackground/ParallaxLayer"]
+position = Vector2( -190, 23 )
+scale = Vector2( 2.43779, 2.09219 )
+texture = ExtResource( 6 )
+offset = Vector2( -25.9302, 6.3126 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="PlayerBody/ParallaxBackground"]
+motion_scale = Vector2( 0.4, 0.4 )
+
+[node name="Sprite2" type="Sprite" parent="PlayerBody/ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 5.42101e-20, -455 )
+scale = Vector2( 2.08965, 2.08965 )
+texture = ExtResource( 5 )
+offset = Vector2( -183.043, 234.226 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="PlayerBody/ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.5 )
+
+[node name="Sprite2" type="Sprite" parent="PlayerBody/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 1808, 24 )
+scale = Vector2( 2.05938, 2.05938 )
+texture = ExtResource( 6 )
+offset = Vector2( -25.9302, 6.3126 )
+flip_h = true
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="PlayerBody/ParallaxBackground"]
+motion_scale = Vector2( 0.4, 0.4 )
+
+[node name="Sprite2" type="Sprite" parent="PlayerBody/ParallaxBackground/ParallaxLayer4"]
+position = Vector2( 1856, -432 )
+scale = Vector2( 2.08965, 2.08965 )
+texture = ExtResource( 5 )
+offset = Vector2( -183.043, 234.226 )
+flip_h = true
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="PlayerBody/ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.5 )
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="PlayerBody/ParallaxBackground"]
+motion_scale = Vector2( 0.4, 0.4 )
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="PlayerBody/ParallaxBackground"]
+position = Vector2( -3688, 23 )
+motion_scale = Vector2( 0.5, 0.5 )
+
+[node name="Sprite2" type="Sprite" parent="PlayerBody/ParallaxBackground/ParallaxLayer7"]
+position = Vector2( 1497, 23 )
+scale = Vector2( 2.05938, 2.05938 )
+texture = ExtResource( 6 )
+offset = Vector2( -25.9302, 6.3126 )
+
+[node name="ParallaxLayer8" type="ParallaxLayer" parent="PlayerBody/ParallaxBackground"]
+position = Vector2( -3688, 23 )
+motion_scale = Vector2( 0.4, 0.4 )
+
+[node name="Sprite2" type="Sprite" parent="PlayerBody/ParallaxBackground/ParallaxLayer8"]
+position = Vector2( 1838, -465 )
+scale = Vector2( 2.08965, 2.08965 )
+texture = ExtResource( 5 )
+offset = Vector2( -183.043, 234.226 )
+
+[node name="dash_cooldown" type="Timer" parent="PlayerBody"]
+wait_time = 1.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="PlayerBody"]
+stream = ExtResource( 43 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Agachar = SubResource( 12 )
+anims/Arremcar = SubResource( 11 )
+anims/Dash = SubResource( 20 )
+anims/Dash_Power = SubResource( 21 )
+anims/Fire_Active = SubResource( 18 )
+anims/Fire_Desable = SubResource( 19 )
+anims/Idle = SubResource( 7 )
+anims/Jump = SubResource( 13 )
+anims/RESET = SubResource( 8 )
+anims/Walk = SubResource( 9 )
+anims/WalkPush = SubResource( 10 )
+
+[node name="Fire" type="AnimationPlayer" parent="."]
+autoplay = "Fire"
+anims/Fire = SubResource( 22 )
+anims/Fire_off = SubResource( 24 )
+anims/RESET = SubResource( 23 )
+
+[node name="Dash" type="AnimationPlayer" parent="."]
+autoplay = "Dash"
+anims/Dash = SubResource( 25 )
+anims/Dash_off = SubResource( 27 )
+anims/RESET = SubResource( 26 )
+
+[connection signal="timeout" from="PlayerBody/Hand/Timer" to="PlayerBody" method="_on_Timer_timeout"]
+[connection signal="body_entered" from="PlayerBody/Grabable_area" to="PlayerBody" method="_on_Grabable_area_body_entered"]
+[connection signal="body_exited" from="PlayerBody/Grabable_area" to="PlayerBody" method="_on_Grabable_area_body_exited"]
+[connection signal="timeout" from="PlayerBody/Jump_Colldown" to="PlayerBody" method="_on_Jump_Colldown_timeout"]
+[connection signal="mouse_entered" from="PlayerBody/Unshuteble_area" to="PlayerBody" method="_on_Unshuteble_area_mouse_entered"]
+[connection signal="mouse_exited" from="PlayerBody/Unshuteble_area" to="PlayerBody" method="_on_Unshuteble_area_mouse_exited"]
+[connection signal="timeout" from="PlayerBody/dash_cooldown" to="PlayerBody" method="_on_dash_cooldown_timeout"]

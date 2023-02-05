@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/LoseColorFinal.wav-1e34b9073642f08acb0e9e7a49ad4168.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/Stingers/LoseColorFinal.wav"
+dest_files=[ "res://.import/LoseColorFinal.wav-1e34b9073642f08acb0e9e7a49ad4168.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

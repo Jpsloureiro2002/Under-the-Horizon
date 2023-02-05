@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/stepcave4.wav-52e60ce570bdfe2c4929d236b24d7e70.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/Player/Steps/Cave/stepcave4.wav"
+dest_files=[ "res://.import/stepcave4.wav-52e60ce570bdfe2c4929d236b24d7e70.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
